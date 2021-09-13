@@ -19,10 +19,24 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
 }));
 
+//================= Databse ====================
+const db = "group18db"
+let dbUrl = `mongodb://localhost:27017/${db}`;
 
-app.use("/admin", adminRouter);
-app.use("/employee", employeeRouter);
-app.use("/use", userRouter);
+// connect to the databse
+mongoose.connect(dbUrl)
+    .then(res => {
+        console.log(`Connected to ${dbUrl}`) ;
+    })
+    .catch(e => {
+        console.log(e);
+    });
+
+
+
+app.use("/api/admin", adminRouter);
+app.use("/api/employee", employeeRouter);
+app.use("/api/use", userRouter);
 
 
 
